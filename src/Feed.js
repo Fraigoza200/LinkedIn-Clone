@@ -8,6 +8,13 @@ function Feed() {
             <div className="feed__inputContainer">
                 <div className="feed__input">
                     <CreateIcon />
+                    <form>
+                        <input type="text"/>
+                        <button type='submit'>Send</button>
+                    </form>
+                </div>
+                <div className="feed__inputOptions">
+                    <InputOption />
                 </div>
             </div>
         </div>
