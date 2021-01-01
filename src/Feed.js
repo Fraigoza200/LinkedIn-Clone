@@ -6,6 +6,7 @@ import InputOption from './InputOption'
 import SubscriptionIcon from '@material-ui/icons/Subscriptions'
 import EventNoteIcon from '@material-ui/icons/EventNote'
 import CalendarViewDayIcon from '@material-ui/icons/CalendarViewDay'
+import Post from './Post'
 
 function Feed() {
     return (
@@ -26,7 +27,7 @@ function Feed() {
                 </div>
             </div>
 
-            {/* posts */}
+            <Post name='Francisco Raigoza' description='test' message='ok its working' />
         </div>
     )
 }
