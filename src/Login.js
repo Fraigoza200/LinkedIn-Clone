@@ -1,19 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { auth } from './firebase'
 import './Login.css'
+import swal from 'sweetalert'
 
 function Login() {
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [profilePic, setProfilePic] = useState('')
+    const dispatch = useDispatch()
 
     const loginToApp = (e) => {
         e.preventDefault()
     }
 
     const register = () => {
+        if(!name) {
+            return swal("Please Enter a Full Name", "Thank You", "error")
+        }
 
+        auth.createUserWithEmailAndPassword(email, password).then(userAuth => {
+            userAuth.user.updateProfile({
+                displayName: name,
+                photoURL: profilePic,
+            })
+            .then(() => {
+                dispatch
+            })
+        })
     }
 
     return (
@@ -21,12 +36,25 @@ function Login() {
             <img src="https://news.hitb.org/sites/default/files/styles/large/public/field/image/500px-LinkedIn_Logo.svg__1.png?itok=q_lR0vks" alt="LinkedIn_Logo"/>
 
             <form>
-                <input type="text" placeholder='Full Name (required if registering)'/>
+                <input value={name} 
+                onChange={e => setName(e.target.value)} type="text" 
+                placeholder='Full Name (required if registering)'/>
 
-                <input type="text" placeholder='Profile pic URL (optional)'/>
+                <input type="text" 
+                placeholder='Profile pic URL (optional)'
+                value={profilePic}
+                onChange={e => setProfilePic(e.target.value)}
+                />
 
-                <input value={email} onChange={} type="Email" placeholder='Email'/>
-                <input type="password" placeholder='Password'/>
+                <input value={email} 
+                onChange={e => setEmail(e.target.value)} type="Email" 
+                placeholder='Email'/>
+
+
+                <input value={password} 
+                onChange={e => setPassword(e.target.value)} 
+                type="password"
+                 placeholder='Password'/>
 
                 <button type='submit' onClick={loginToApp}>Sign In</button>
             </form>
