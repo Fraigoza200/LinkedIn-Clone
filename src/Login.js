@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { auth } from './firebase'
 import './Login.css'
 import swal from 'sweetalert'
+import { login } from './features/userSlice'
+import { useDispatch } from 'react-redux'
 
 function Login() {
 
@@ -26,9 +28,14 @@ function Login() {
                 photoURL: profilePic,
             })
             .then(() => {
-                dispatch
+                dispatch(login({
+                    email: userAuth.user.email,
+                    uid: userAuth.user.uid,
+                    displayName: name, 
+                    photoURL: profilePic
+                }))
             })
-        })
+        }).catch((error) =>  swal(error))
     }
 
     return (
