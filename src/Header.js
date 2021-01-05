@@ -7,8 +7,20 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount'
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter'
 import ChatIcon from '@material-ui/icons/Chat'
 import NotificationIcon from '@material-ui/icons/Notifications'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout, selectUser } from './features/userSlice'
+import { auth } from './firebase'
 
 function Header() {
+    const dispatch = useDispatch()
+
+    const user = useSelector(selectUser)
+
+
+    const logoutOfApp = () => {
+    dispatch(logout())
+    auth.signOut()
+    }
     return (
         <div className='header'>
             <div className="header__left">
@@ -26,7 +38,9 @@ function Header() {
                 <HeaderOption Icon={BusinessCenterIcon} title='Jobs' />
                 <HeaderOption Icon={ChatIcon} title='Messaging'/>
                 <HeaderOption  Icon={NotificationIcon} title='Notifications'/>
-                <HeaderOption avatar='https://www.flaticon.com/svg/static/icons/svg/174/174857.svg' title='Avatar'/>
+                <HeaderOption avatar={true} title={user?.displayName}
+                onClick={logoutOfApp}
+                />
             </div>
         </div>
     )

@@ -1,5 +1,7 @@
 import { Avatar } from '@material-ui/core'
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { selectUser } from './features/userSlice'
 import './Sidebar.css'
 
 const Sidebar = () => {
@@ -12,13 +14,17 @@ const Sidebar = () => {
         </div>
     )
 
+    const user = useSelector(selectUser)
+
     return (
         <div className='sidebar'>
             <div className="sidebar__top">
                 <img src="https://images.pexels.com/photos/3394939/pexels-photo-3394939.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
-                <Avatar className='sidebar__avatar'/>
-                <h2>Francisco Raigoza</h2>
-                <h4>frankieraigoza@gmail.com</h4>
+                <Avatar src={user.photoUrl} className='sidebar__avatar'>
+                    {user.email[0]}
+                     </Avatar>
+                <h2>{user.displayName}</h2>
+                <h4>{user.email}</h4>
             </div>
             <div className="sidebar__stats">
                 <div className="sidebar__stat">
