@@ -51,7 +51,7 @@ function Feed() {
                 <div className="feed__input">
                     <CreateIcon />
                     <form>
-                        <input type="text" value={input} onChange={(e) => setInput(e.target.value)}/>
+                        <input type="text" value={input} onChange={e => setInput(e.target.value)}/>
                         <button type='submit' onClick={sendPost}>Send</button>
                     </form>
                 </div>
